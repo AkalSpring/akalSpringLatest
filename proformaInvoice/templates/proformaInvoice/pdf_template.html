@@ -202,6 +202,23 @@
         </tr>
         {%endfor%}
         {%endfor%}
+
+        {%if not nextLevel%}
+        {%for i in empty%}
+        <tr>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;">&nbsp;</td>
+            <td colspan="5" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+        </tr>
+        {%endfor%}
+        {%endif%}
+
+
+
         <tr>
             <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;">&nbsp;</td>
             <td colspan="5" style="border-top: none; border-bottom:none; border-top: none;"></td>
@@ -442,6 +459,23 @@
             </td>
         </tr>
         {%endfor%}
+
+
+        {%if nextLevel%}
+        {%for i in empty%}
+        <tr>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;">&nbsp;</td>
+            <td colspan="5" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+        </tr>
+        {%endfor%}
+        {%endif%}
+
+
         <tr>
             <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;">&nbsp;</td>
             <td colspan="5" style="border-top: none; border-bottom:none; border-top: none;"></td>

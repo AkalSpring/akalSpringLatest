@@ -146,6 +146,9 @@ def getPdf(request):
         FractionalCurrencyCode = FractionalCurrencyCode.capitalize()
         break
 
+    x = range(len(prodList) + len(lastList) + 1,
+                  int((len(prodList) + len(lastList) + 11)/12)*12)
+
     context = {
         "iProds": prodList, "eProds": lastList, "invoice": instance.proformaInvoice,
         "billDate": instance.proformaDate, "otherReferences": instance.otherReferences,
@@ -155,7 +158,7 @@ def getPdf(request):
         "portOfLoading": instance.portOfLoading, "portOfDischarge": instance.portOfDischarge,
         "finalDestination": instance.finalDestination, "currency": instance.currency,
         "totalSales": instance.totalSales, "billId": id, "descriptionOfGoods": instance.descriptionOfGoods, "currencyCode": instance.currency.split(" - ")[1],
-        "fractionalCurrencyCode": FractionalCurrencyCode,
+        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x,
     }
     print(context["eProds"])
     return render(request, 'proformaInvoice/pdf_template.html', context)

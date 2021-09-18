@@ -171,8 +171,8 @@
                 <td colspan="1" style="text-align: center;"><b>HSN Code</b></td>
                 <td colspan="1" style="text-align: center;"><b>Net WT. (kg)</b></td>
                 <td colspan="1" style="text-align: center;"><b>Qty (Pcs.)</b></td>
-                <td colspan="1" style="text-align: center;"><b>Rate / PCS {{currency}}</b></td>
-                <td colspan="1" style="text-align: center;"><b>Total Amount In {{currency}}</b></td>
+                <td colspan="1" style="text-align: center;"><b>Rate / PCS ({{currencyCode}})</b></td>
+                <td colspan="1" style="text-align: center;"><b>Total Amount In ({{currencyCode}})</b></td>
             </tr>
             <tr>
                 <td colspan="1" style="border-bottom: none;"></td>
@@ -223,6 +223,21 @@
             </tr>
             {%endfor%}
             {%endfor%}
+
+            {%if not nextLevel%}
+            {%for i in empty%}
+            <tr>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;">&nbsp;</td>
+                <td colspan="5" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            </tr>
+            {%endfor%}
+            {%endif%}
+
             <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;">&nbsp;</td>
                 <td colspan="5" style="border-top: none; border-bottom:none; border-top: none;"></td>
@@ -480,8 +495,8 @@
                 <td colspan="1" style="text-align: center;"><b>HSN Code</b></td>
                 <td colspan="1" style="text-align: center;"><b>Net WT. (kg)</b></td>
                 <td colspan="1" style="text-align: center;"><b>Qty (Pcs.)</b></td>
-                <td colspan="1" style="text-align: center;"><b>Rate / PCS {{currency}}</b></td>
-                <td colspan="1" style="text-align: center;"><b>Total Amount In {{currency}}</b></td>
+                <td colspan="1" style="text-align: center;"><b>Rate / PCS ({{currencyCode}})</b></td>
+                <td colspan="1" style="text-align: center;"><b>Total Amount In ({{currencyCode}})</b></td>
             </tr>
             <tr>
                 <td colspan="1" style="border-bottom: none;"></td>
@@ -532,6 +547,21 @@
             </tr>
             {%endfor%}
             {%endfor%}
+
+            {%if nextLevel%}
+            {%for i in empty%}
+            <tr>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;">&nbsp;</td>
+                <td colspan="5" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+                <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
+            </tr>
+            {%endfor%}
+            {%endif%}
+
             <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;">&nbsp;</td>
                 <td colspan="5" style="border-top: none; border-bottom:none; border-top: none;"></td>

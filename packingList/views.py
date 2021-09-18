@@ -36,7 +36,8 @@ def showPdf(request):
 
     for product in instance.products:
         netWt += float(product["weight"])*float(product["qty"])
-        netGrossWt += float(product["weight"])*float(product["qty"]) + float(product["boxWt"])
+        netGrossWt += float(product["weight"]) * \
+            float(product["qty"]) + float(product["boxWt"])
         lst.append(product)
 
     prodList = []
@@ -49,14 +50,17 @@ def showPdf(request):
     lastList = prodList[-1]
     prodList = prodList[:-1]
 
+    x = range(len(prodList) + len(lastList) + 1,
+              int((len(prodList) + len(lastList) + 11)/12)*12)
+
     context = {
-                "iProds": prodList, "eProds": lastList, "netWt": netWt, "netGrossWt": netGrossWt,
-                "totalBoxes": instance.totalBoxes, "invoice": instance.invoice, "billDate": instance.billDate,
-                "otherReferences": instance.otherReferences, 'grNo': instance.grNo, "customerId": instance.customerId,
-                "termOfPayment": instance.termsOfPayment, "preCarriage": instance.preCarriage,
-                "billOfLadingNo":instance.billOfLadingNo, "ladingDate": instance.ladingDate,
-                "vesselFlightNo": instance.vesselFlightNo, "portOfLoading": instance.portOfLoading,
-                "portOfDischarge": instance.portOfDischarge, "finalDestination": instance.finalDestination,
-                "natureOfContract": instance.natureOfContract, "billId": id,
-               }
+        "iProds": prodList, "eProds": lastList, "netWt": netWt, "netGrossWt": netGrossWt,
+        "totalBoxes": instance.totalBoxes, "invoice": instance.invoice, "billDate": instance.billDate,
+        "otherReferences": instance.otherReferences, 'grNo': instance.grNo, "customerId": instance.customerId,
+        "termOfPayment": instance.termsOfPayment, "preCarriage": instance.preCarriage,
+        "billOfLadingNo": instance.billOfLadingNo, "ladingDate": instance.ladingDate,
+        "vesselFlightNo": instance.vesselFlightNo, "portOfLoading": instance.portOfLoading,
+        "portOfDischarge": instance.portOfDischarge, "finalDestination": instance.finalDestination,
+        "natureOfContract": instance.natureOfContract, "billId": id, "nextLevel": len(lastList) > 0, "empty": x,
+    }
     return render(request, 'packingList/pdf_template.html', context)

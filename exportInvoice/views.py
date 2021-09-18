@@ -92,6 +92,8 @@ def showPdf(request):
         FractionalCurrencyCode = FractionalCurrencyCode.capitalize()
         break
 
+    x = range(len(prodList) + len(lastList) + 1, int((len(prodList) + len(lastList) + 11)/12)*12)
+
     context = {
         "iProds": prodList, "eProds": lastList, "netWt": netWt, "netGrossWt": netGrossWt,
         "totalBoxes": instance.totalBoxes, "invoice": instance.invoice, "billDate": instance.billDate,
@@ -102,7 +104,7 @@ def showPdf(request):
         "portOfDischarge": instance.portOfDischarge, "finalDestination": instance.finalDestination,
         "natureOfContract": instance.natureOfContract, "currency": instance.currency,
         "freightCharges": instance.freightCharges, "descriptionOfGoods": instance.descriptionOfGoods, "billId": id, "currencyCode": instance.currency.split(" - ")[1], 
-        "fractionalCurrencyCode": FractionalCurrencyCode,
+        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x,
     }
     
     return render(request, 'exportInvoice/pdf_template.html', context)
