@@ -1,6 +1,6 @@
 import json
 from math import ceil
-
+import re
 from django.shortcuts import render
 from master.models import Bill
 
@@ -17,6 +17,8 @@ def showBills(request):
     instance = Bill.objects.filter(billDate__range=[datFrom, datTo])
 
     for i in instance:
+        p = re.compile('(?<!\\\\)\'')
+        i.products = p.sub('\"', i.products)
         i.products = json.loads(i.products)
 
     context["bills"] = instance
@@ -28,6 +30,10 @@ def showPdf(request):
     context = dict()
     id = request.GET.get("id")
     instance = Bill.objects.get(id=id)
+
+    p = re.compile('(?<!\\\\)\'')
+    instance.products = p.sub('\"', instance.products)
+
     instance.products = json.loads(instance.products)
 
     netWt = 0

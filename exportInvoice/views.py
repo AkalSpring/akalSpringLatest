@@ -5,6 +5,7 @@ import pandas as pd
 from django.shortcuts import render
 from pandas.core import indexing
 from master.models import Bill
+import re
 
 
 def index(request):
@@ -20,6 +21,10 @@ def showBills(request):
 
     for bill in instance:
         prod = dict()
+
+        p = re.compile('(?<!\\\\)\'')
+        bill.products = p.sub('\"', bill.products)
+
         bill.products = json.loads(bill.products)
 
         for product in bill.products:
@@ -43,6 +48,10 @@ def showPdf(request):
     context = dict()
     id = request.GET.get("id")
     instance = Bill.objects.get(id=id)
+
+    p = re.compile('(?<!\\\\)\'')
+    instance.products = p.sub('\"', instance.products)
+
     instance.products = json.loads(instance.products)
 
     netWt = 0
@@ -97,14 +106,14 @@ def showPdf(request):
     context = {
         "iProds": prodList, "eProds": lastList, "netWt": netWt, "netGrossWt": netGrossWt,
         "totalBoxes": instance.totalBoxes, "invoice": instance.invoice, "billDate": instance.billDate,
-        "otherReferences": instance.otherReferences, 'grNo': instance.grNo, "customerId": instance.customerId,
+        "otherReferences": instance.otherReferences, 'grNo': instance.grNo, "customerId": instance.getConsignee(),
         "termOfPayment": instance.termsOfPayment, "preCarriage": instance.preCarriage,
         "billOfLadingNo": instance.billOfLadingNo, "ladingDate": instance.ladingDate,
         "vesselFlightNo": instance.vesselFlightNo, "portOfLoading": instance.portOfLoading,
         "portOfDischarge": instance.portOfDischarge, "finalDestination": instance.finalDestination,
         "natureOfContract": instance.natureOfContract, "currency": instance.currency,
         "freightCharges": instance.freightCharges, "descriptionOfGoods": instance.descriptionOfGoods, "billId": id, "currencyCode": instance.currency.split(" - ")[1], 
-        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x,
+        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x, "shippingMark": instance.shipingMark(), "cf_fob": instance.checkerForCForFOB, "amtDesc": instance.amtDescription()
     }
     
     return render(request, 'exportInvoice/pdf_template.html', context)
@@ -115,5 +124,63 @@ def changeDescription(request):
     val = request.GET.get("val")
     instance = Bill.objects.get(id=id)
     instance.descriptionOfGoods = val
+    instance.save()
+    return HttpResponse(json.dumps({"success": "success"}))
+
+def changeShippingMark(request):
+    id = request.GET.get("id")
+    val = request.GET.get("val")
+    instance = Bill.objects.get(id=id)
+    instance.shipMark = val
+    instance.save()
+    return HttpResponse(json.dumps({"success": "success"}))
+
+
+def changeCFFOB(request):
+    id = request.GET.get("id")
+    val = request.GET.get("val")
+    instance = Bill.objects.get(id=id)
+    instance.checkerForCForFOB = val
+    instance.save()
+    return HttpResponse(json.dumps({"success": "success"}))
+
+def changeAmtDesc(request):
+    id = request.GET.get("id")
+    val = request.GET.get("val")
+    instance = Bill.objects.get(id=id)
+    instance.amtDesc = val
+    instance.save()
+    return HttpResponse(json.dumps({"success": "success"}))
+
+
+def updatecompName(request):
+    id = request.GET.get("id")
+    val = request.GET.get("val")
+    instance = Bill.objects.get(id=id)
+    data = instance.getConsignee()
+    data["name"] = val
+    instance.pdfConsignee = json.dumps(data)
+    instance.save()
+    return HttpResponse(json.dumps({"success": "success"}))
+
+
+def updateAddress(request):
+    id = request.GET.get("id")
+    val = request.GET.get("val")
+    instance = Bill.objects.get(id=id)
+    data = instance.getConsignee()
+    data["address"] = val
+    instance.pdfConsignee = json.dumps(data)
+    instance.save()
+    return HttpResponse(json.dumps({"success": "success"}))
+
+
+def updateCountry(request):
+    id = request.GET.get("id")
+    val = request.GET.get("val")
+    instance = Bill.objects.get(id=id)
+    data = instance.getConsignee()
+    data["country"] = val
+    instance.pdfConsignee = json.dumps(data)
     instance.save()
     return HttpResponse(json.dumps({"success": "success"}))

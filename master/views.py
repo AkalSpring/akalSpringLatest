@@ -1,6 +1,6 @@
 import datetime
 from math import ceil
-
+import re
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Bill
@@ -32,6 +32,8 @@ def showBills(request):
     instance = Bill.objects.filter(billDate__range=[datFrom, datTo])
 
     for i in instance:
+        p = re.compile('(?<!\\\\)\'')
+        i.products = p.sub('\"', i.products)
         i.products = json.loads(i.products)
 
     context["bills"] = instance
@@ -52,6 +54,8 @@ def showBills2(request):
     instance = Bill.objects.filter(billDate=billDate)
 
     for i in instance:
+        p = re.compile('(?<!\\\\)\'')
+        i.products = p.sub('\"', i.products)
         i.products = json.loads(i.products)
 
     context["bills"] = instance

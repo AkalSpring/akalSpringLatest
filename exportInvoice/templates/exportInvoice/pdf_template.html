@@ -58,7 +58,7 @@
                 </tr>
                 <tr>
                     <td colspan="100">
-                        <h3 style="text-align:center;">Supply meant for export under Letter of undertaking without
+                        <h3 style="text-align:center;">Supply meant for export under Letter of undertaking with
                             payment
                             of IGST</h3>
                     </td>
@@ -67,12 +67,9 @@
                     <td rowspan=2 colspan=3>
                         <b>Exporter:</b>
                         <br>
-                        <input type="text" value="'AKAL SPRING LTD'," onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 98%;">
-                        <input type="text" value="A-8, PHASE V, FOCAL POINT" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 98%;">
-                        <input type="text" value="LUDHIANA - 141 010, INDIA" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 98%;">
+                        <b>AKAL SPRING LTD</b><br>
+                        <b>A-8, PHASE V, FOCAL POINT</b><br>
+                        <b>LUDHIANA - 141 010, INDIA</b>
                     </td>
                     <td colspan="3" style="text-align: center; border-bottom: none;">
                         Invoice No. & Date: <br>
@@ -103,12 +100,15 @@
                             Consignee:-<br>
                         </b>
                         <br>
-                        <input type="text" value="{{customerId}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;">
-                        <input type="text" value="{{customerId.company_address}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;">
-                        <input type="text" value="{{customerId.company_country}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;">
+                        <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="compName"
+                            oninput="updatecompName(this.value)">
+                        <input type="text" value="{{customerId.address}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="address"
+                            oninput="updateAddress(this.value)">
+                        <input type="text" value="{{customerId.country}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="country"
+                            oninput="updateCountry(this.value)">
                     </td>
                     <td colspan="5"><b>Bill of Lading No:-
                             {{billOfLadingNo}}
@@ -170,9 +170,9 @@
                 <td colspan="5" style="text-align: center;"><b>Description of Good</b></td>
                 <td colspan="1" style="text-align: center;"><b>HSN Code</b></td>
                 <td colspan="1" style="text-align: center;"><b>Net WT. (kg)</b></td>
-                <td colspan="1" style="text-align: center;"><b>Qty (Pcs.)</b></td>
-                <td colspan="1" style="text-align: center;"><b>Rate / PCS ({{currencyCode}})</b></td>
-                <td colspan="1" style="text-align: center;"><b>Total Amount In ({{currencyCode}})</b></td>
+                <td colspan="1" style="text-align: center;"><b>Qty(Pcs)</b></td>
+                <td colspan="1" style="text-align: center;"><b>Rate/Pcs({{currencyCode}})</b></td>
+                <td colspan="1" style="text-align: center;"><b>Total Amount({{currencyCode}})</b></td>
             </tr>
             <tr>
                 <td colspan="1" style="border-bottom: none;"></td>
@@ -192,26 +192,26 @@
             {%for product in products%}
             {%for proName, data in product.items%}
             <tr>
-                <td colspan="1" style="border-top: none; border-bottom:none;">
+                <td colspan="1" style="border-top: none; border-bottom:none; text-align: center;">
                     <script>
                         document.write(bn);
                         bn++;
                     </script>
                 </td>
-                <td colspan="5" style="border-top: none; border-bottom:none;">{{proName}}</td>
-                <td colspan="1" style="border-top: none; border-bottom:none;">{{data.hsnCode}}</td>
-                <td colspan="1" style="border-top: none; border-bottom:none; text-align: right;">
+                <td colspan="5" style="border-top: none; border-bottom:none;text-align: center;">{{proName}}</td>
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">{{data.hsnCode}}</td>
+                <td colspan="1" style="border-top: none; border-bottom:none; text-align: center;">
                     <script>
                         document.write(Math.abs(`{{data.netWt}}`).toFixed(3))
                     </script>
                 </td>
-                <td colspan="1" style="border-top: none; border-bottom:none;text-align: right;">{{data.qty}}</td>
-                <td colspan="1" style="border-top: none; border-bottom:none;text-align: right;">
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">{{data.qty}}</td>
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">
                     <script>
                         document.write(Math.abs(`{{data.cpp}}`).toFixed(2))
                     </script>
                 </td>
-                <td colspan="1" style="border-top: none; border-bottom:none;text-align: right;">
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">
                     <script>
                         document.write(Math.abs(`{{data.totalAmount}}`).toFixed(2))
 
@@ -249,22 +249,36 @@
             </tr>
             <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; "></td>
-                <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">TOTAL AMOUNT IN
-                    {{currency}} :-
+                <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">
+                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)">
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="1" style="text-align: center;">
+                    <script>
+                        document.write(totalAmount.toFixed(2))
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="border-top: none; border-bottom:none; "></td>
+                <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">
                 </td>
                 <td colspan="1"></td>
-                <td colspan="1" style="text-align: right;">
+                <td colspan="1" style="text-align: center;">
                     <script>
                         document.write(netWt.toFixed(3))
                     </script>
                 </td>
-                <td colspan="1" style="text-align: right;">
+                <td colspan="1" style="text-align: center;">
                     <script>
                         document.write(qty)
                     </script>
                 </td>
                 <td colspan="1"></td>
-                <td colspan="1" style="text-align: right;">
+                <td colspan="1" style="text-align: center;">
                     <script>
                         document.write(totalAmount.toFixed(2))
                     </script>
@@ -272,9 +286,8 @@
             </tr>
 
             <tr>
-                <td colspan="1" style="border-top: none; border-bottom:none;"></td>
-                <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">Total Amount :- </td>
-                <td colspan="5">
+                <td colspan="11" style="border-top: none; border-bottom:none;">
+
                     <script>
                         dec = (totalAmount - Math.trunc(totalAmount)).toFixed(2);
                         dec = dec.substr(2);
@@ -282,7 +295,12 @@
                             ` {{currencyCode}}` + ' and ' + inWords(
                                 dec) +
                             ' {{fractionalCurrencyCode}} Only');
-                        document.write(`<input type="text" value="` + amt + `" style="width:99%">`);
+                        document.write(
+                            `<input type="text" value="Total {{cf_fob}} PORT {{portOfDischarge}} {{currency}} ` +
+                            amt +
+                            `"
+                        style="width: 99%;font-weight: bold;;" class="totalAmount" onclick="change_cf_fob(this.value)">`
+                        );
                     </script>
                 </td>
             </tr>
@@ -299,16 +317,15 @@
             </tr>
             <tr>
                 <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Number
-                        Of Packages: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<script>
-                            document.write(`{{totalBoxes}}`)
-                        </script> Packages</b></td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Number
+                        Of Packages: &nbsp;&nbsp; {{totalBoxes}} Packages</b>
+                </td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Net
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Net
                         Weight:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <script>
                             document.write(Math.abs(`{{netWt}}`).toFixed(3))
                         </script>
@@ -316,9 +333,9 @@
             </tr>
             <tr>
                 <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Gross
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Gross
                         Weight:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <script>
                             document.write(Math.abs(`{{netGrossWt}}`).toFixed(3))
                         </script>
@@ -326,11 +343,11 @@
             </tr>
             <tr>
                 <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Shipping
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Shipping
                         Mark:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1-
-                        <input type="text" value="{{totalBoxes}} {{finalDestination}}"
-                            onclick="this.style.border=`none`"></b></td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="text" value="{{shippingMark}}" onclick="this.style.border=`none`"
+                            style="width: 50%;" oninput="changeShippingMark(this.value)" class="shippingMark"></b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>
@@ -338,29 +355,24 @@
                     <b>AUTHORISED SIGNATORY.</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;border-bottom: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>BANK
+                <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
                         DETAILS:</b> </td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;border-bottom: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>BANK
+                <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
                         AUTHORISED DEALER CODE NO: 0260523
                         3300009</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;border-bottom: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>BANK
+                <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
                         ACCOUNT NUMBER: 6560364035</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;border-bottom: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>BANK
+                <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
                         BRANCH IFSC: IDIB000S252</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>SWIFT CODE: IDIBINBBLDN</b></td>
+                <td colspan="6" style="border-top: none;"><b>SWIFT CODE: IDIBINBBLDN</b></td>
             </tr>
         </table>
     </div>
@@ -383,7 +395,7 @@
                 </tr>
                 <tr>
                     <td colspan="100">
-                        <h3 style="text-align:center;">Supply meant for export under Letter of undertaking without
+                        <h3 style="text-align:center;">Supply meant for export under Letter of undertaking with
                             payment
                             of IGST</h3>
                     </td>
@@ -425,15 +437,18 @@
                 <tr>
                     <td colspan="3" rowspan="3">
                         <b>
-                            Consignee:-
+                            Consignee:-<br>
                         </b>
                         <br>
-                        <input type="text" value="{{customerId}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;">
-                        <input type="text" value="{{customerId.company_address}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;">
-                        <input type="text" value="{{customerId.company_country}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;">
+                        <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="compName"
+                            oninput="updatecompName(this.value)">
+                        <input type="text" value="{{customerId.address}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="address"
+                            oninput="updateAddress(this.value)">
+                        <input type="text" value="{{customerId.country}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="country"
+                            oninput="updateCountry(this.value)">
                     </td>
                     <td colspan="5"><b>Bill of Lading No:- {{billOfLadingNo}}
                             {%if ladingDate %} DT. {{ladingDate}} {%endif%}</b></td>
@@ -494,9 +509,9 @@
                 <td colspan="5" style="text-align: center;"><b>Description of Good</b></td>
                 <td colspan="1" style="text-align: center;"><b>HSN Code</b></td>
                 <td colspan="1" style="text-align: center;"><b>Net WT. (kg)</b></td>
-                <td colspan="1" style="text-align: center;"><b>Qty (Pcs.)</b></td>
-                <td colspan="1" style="text-align: center;"><b>Rate / PCS ({{currencyCode}})</b></td>
-                <td colspan="1" style="text-align: center;"><b>Total Amount In ({{currencyCode}})</b></td>
+                <td colspan="1" style="text-align: center;"><b>Qty(Pcs.)</b></td>
+                <td colspan="1" style="text-align: center;"><b>Rate/PCS({{currencyCode}})</b></td>
+                <td colspan="1" style="text-align: center;"><b>Total Amount({{currencyCode}})</b></td>
             </tr>
             <tr>
                 <td colspan="1" style="border-bottom: none;"></td>
@@ -516,26 +531,26 @@
             {%for product in eProds%}
             {%for proName, data in product.items%}
             <tr>
-                <td colspan="1" style="border-top: none; border-bottom:none;">
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align:center">
                     <script>
                         document.write(bn);
                         bn++;
                     </script>
                 </td>
-                <td colspan="5" style="border-top: none; border-bottom:none;">{{proName}}</td>
-                <td colspan="1" style="border-top: none; border-bottom:none;">{{data.hsnCode}}</td>
-                <td colspan="1" style="border-top: none; border-bottom:none; text-align: right;">
+                <td colspan="5" style="border-top: none; border-bottom:none;text-align:center">{{proName}}</td>
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align:center">{{data.hsnCode}}</td>
+                <td colspan="1" style="border-top: none; border-bottom:none; text-align: center;">
                     <script>
                         document.write(Math.abs(`{{data.netWt}}`).toFixed(3))
                     </script>
                 </td>
-                <td colspan="1" style="border-top: none; border-bottom:none;text-align: right;">{{data.qty}}</td>
-                <td colspan="1" style="border-top: none; border-bottom:none;text-align: right;">
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">{{data.qty}}</td>
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">
                     <script>
                         document.write(Math.abs(`{{data.cpp}}`).toFixed(2))
                     </script>
                 </td>
-                <td colspan="1" style="border-top: none; border-bottom:none;text-align: right;">
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">
                     <script>
                         document.write(Math.abs(`{{data.totalAmount}}`).toFixed(2))
 
@@ -572,14 +587,29 @@
                 <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
             </tr>
             <tr>
+                <td colspan="1" style="border-top: none; border-bottom:none; "></td>
+                <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">
+                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)">
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="1" style="text-align: center;">
+                    <script>
+                        document.write(totalAmount.toFixed(2))
+                    </script>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none;"></td>
                 <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">Add Freight
-                    ({{currency}}):</td>
+                    ({{currencyCode}}):</td>
                 <td colspan="1" style="border-top: none;"></td>
                 <td colspan="1" style="border-top: none;"></td>
                 <td colspan="1" style="border-top: none;"></td>
                 <td colspan="1" style="border-top: none;"></td>
-                <td colspan="1" style="border-top: none; text-align: right;">
+                <td colspan="1" style="border-top: none; text-align: center;">
                     <script>
                         document.write(Math.abs(`{{freightCharges}}`).toFixed(2));
                         totalAmount += Math.abs(`{{freightCharges}}`)
@@ -588,22 +618,22 @@
             </tr>
             <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; "></td>
-                <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">TOTAL AMOUNT IN
-                    {{currency}} :-
+                <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">Total
+                    Amount({{currencyCode}})
                 </td>
                 <td colspan="1"></td>
-                <td colspan="1" style="text-align: right;">
+                <td colspan="1" style="text-align: center;">
                     <script>
                         document.write(netWt.toFixed(3))
                     </script>
                 </td>
-                <td colspan="1" style="text-align: right;">
+                <td colspan="1" style="text-align: center;">
                     <script>
                         document.write(qty)
                     </script>
                 </td>
                 <td colspan="1"></td>
-                <td colspan="1" style="text-align: right;">
+                <td colspan="1" style="text-align: center;">
                     <script>
                         document.write(totalAmount.toFixed(2))
                     </script>
@@ -611,22 +641,24 @@
             </tr>
 
             <tr>
-                <td colspan="1" style="border-top: none; border-bottom:none;"></td>
-                <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">Total Amount
-                    :-{{currency}} </td>
-                <td colspan="5">
+                <td colspan="11" style="border-top: none; border-bottom:none;">
+
                     <script>
                         dec = (totalAmount - Math.trunc(totalAmount)).toFixed(2);
                         dec = dec.substr(2);
                         amt = (inWords(Math.trunc(totalAmount)) +
                             ` {{currencyCode}}` + ' and ' + inWords(
                                 dec) +
-                            ` {{fractionalCurrencyCode}}`);
-                        document.write(`<input type="text" value="` + amt + `" style="width:99%">`);
+                            ' {{fractionalCurrencyCode}} Only');
+                        document.write(
+                            `<input type="text" value="Total {{cf_fob}} PORT {{portOfDischarge}} {{currency}} ` +
+                            amt +
+                            `"
+                        style="width: 99%;font-weight: bold; " class="totalAmount" onclick="change_cf_fob(this.value)">`
+                        );
                     </script>
                 </td>
             </tr>
-
             <tr>
                 <td colspan="6" style="border-bottom: none; border-left: none; border-right: none;">&nbsp;</td>
                 <td colspan="5" rowspan="6" style="text-align: center; border-bottom: none;">
@@ -639,15 +671,15 @@
             </tr>
             <tr>
                 <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Number
-                        Of Packages: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalBoxes}} Packages</b>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Number
+                        Of Packages: &nbsp;&nbsp; {{totalBoxes}} Packages</b>
                 </td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Net
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Net
                         Weight:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <script>
                             document.write(Math.abs(`{{netWt}}`).toFixed(3))
                         </script>
@@ -655,9 +687,9 @@
             </tr>
             <tr>
                 <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Gross
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Gross
                         Weight:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <script>
                             document.write(Math.abs(`{{netGrossWt}}`).toFixed(3))
                         </script>
@@ -665,11 +697,11 @@
             </tr>
             <tr>
                 <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Shipping
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Shipping
                         Mark:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1-
-                        <input type="text" value="{{totalBoxes}} {{finalDestination}}"
-                            onclick="this.style.border=`none`"></b></td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="text" value="{{shippingMark}}" onclick="this.style.border=`none`"
+                            style="width: 50%;" oninput="changeShippingMark(this.value)" class="shippingMark"></b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>
@@ -677,28 +709,24 @@
                     <b>AUTHORISED SIGNATORY.</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;border-bottom: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>BANK
+                <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
                         DETAILS:</b> </td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;border-bottom: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>BANK
-                        AUTHORISED DEALER CODE NO: 0260523 3300009</b></td>
+                <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
+                        AUTHORISED DEALER CODE NO: 0260523
+                        3300009</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;border-bottom: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>BANK
+                <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
                         ACCOUNT NUMBER: 6560364035</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;border-bottom: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>BANK
+                <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
                         BRANCH IFSC: IDIB000S252</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border-top: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>SWIFT CODE: IDIBINBBLDN</b></td>
+                <td colspan="6" style="border-top: none;"><b>SWIFT CODE: IDIBINBBLDN</b></td>
             </tr>
         </table>
     </div>
@@ -717,6 +745,133 @@
         }
 
         let url = "/exportInvoice/changeDescription";
+        $.get(url, {
+            "id": `{{billId}}`,
+            "val": val,
+        }, function (data, response) {
+            return;
+        })
+    }
+
+    function changeShippingMark(val) {
+        let arr = document.getElementsByClassName("shippingMark");
+
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            element.value = val;
+        }
+
+        let url = "/exportInvoice/changeShippingMark";
+
+        $.get(url, {
+            "id": `{{billId}}`,
+            "val": val,
+        }, function (data, response) {
+            return;
+        })
+
+    }
+
+    function amtDesc(val) {
+        let arr = document.getElementsByClassName("amtDesc");
+
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            element.value = val;
+        }
+
+        let url = "/exportInvoice/changeAmtDesc";
+
+        $.get(url, {
+            "id": `{{billId}}`,
+            "val": val,
+        }, function (data, response) {
+            return;
+        })
+    }
+
+    function change_cf_fob(val) {
+        let url = "/exportInvoice/changeCFFOB";
+        res = "Total "
+
+        if (val[6] == 'C') {
+            res += "FOB "
+
+            $.get(url, {
+                "id": `{{billId}}`,
+                "val": "FOB",
+            }, function (data, response) {
+                // return;
+            })
+        } else {
+            res += "C&F "
+
+            $.get(url, {
+                "id": `{{billId}}`,
+                "val": "C&F",
+            }, function (data, response) {
+                // return;
+            })
+        }
+
+        for (let index = 10; index < val.length; index++) {
+            res += val[index];
+        }
+
+        let arr = document.getElementsByClassName("totalAmount");
+
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            element.value = res;
+        }
+    }
+
+    function updatecompName(val) {
+        let arr = document.getElementsByClassName("compName");
+
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            element.value = val;
+        }
+
+        let url = "/exportInvoice/updatecompName";
+
+        $.get(url, {
+            "id": `{{billId}}`,
+            "val": val,
+        }, function (data, response) {
+            return;
+        })
+    }
+    
+    function updateAddress(val) {
+        let arr = document.getElementsByClassName("address");
+
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            element.value = val;
+        }
+
+        let url = "/exportInvoice/updateAddress";
+
+        $.get(url, {
+            "id": `{{billId}}`,
+            "val": val,
+        }, function (data, response) {
+            return;
+        })
+    }
+    
+    function updateCountry(val) {
+        let arr = document.getElementsByClassName("country");
+
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            element.value = val;
+        }
+
+        let url = "/exportInvoice/updateCountry";
+
         $.get(url, {
             "id": `{{billId}}`,
             "val": val,

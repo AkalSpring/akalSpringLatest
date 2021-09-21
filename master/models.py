@@ -1,8 +1,10 @@
+from typing import Tuple
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from companies.models import Company
 from products.models import Product
 from django.db import models
+import json
 # Create your models here.
 
 
@@ -37,8 +39,42 @@ class Bill(models.Model):
     exchangeDate = models.DateField(blank=True, null=True)
     consigneeBank = models.TextField(blank=True, null=True)
     consigneeAccount = models.TextField(blank=True, null=True)
-    descriptionOfGoods = models.TextField(default="LAMINATED LEAF SPRINGS & NUT WITH BOLTS")
+    descriptionOfGoods = models.TextField(
+        default="LAMINATED LEAF SPRINGS & NUT WITH BOLTS")
+    shipMark = models.TextField(blank=True, null=True)
+    checkerForCForFOB = models.TextField(default="C&F")
+    amtDesc = models.TextField(blank=True, null=True)
+    pdfConsignee = models.TextField(blank=True, null=True)
+
+    def shipingMark(self):
+        if self.shipMark:
+            return self.shipMark
+        else:
+            self.shipMark = (
+                "1 - {} {}".format(self.totalBoxes, self.finalDestination))
+            self.save()
+            return self.shipMark
+
+    def amtDescription(self):
+        if self.amtDesc:
+            return self.amtDesc
+        else:
+            self.amtDesc = ("Total {} FOB".format(
+                self.currency.split(" - ")[1]))
+            self.save()
+            return self.amtDesc
+
+    def getConsignee(self):
+        if self.pdfConsignee:
+            return json.loads(self.pdfConsignee)
+        else:
+            self.pdfConsignee = json.dumps({
+                'name': self.customerId.company_name,
+                'address': self.customerId.company_address,
+                'country': self.customerId.company_country,
+            })
+            self.save()
+            return json.loads(self.pdfConsignee)
 
     def __str__(self):
         return str(self.invoice)
-
