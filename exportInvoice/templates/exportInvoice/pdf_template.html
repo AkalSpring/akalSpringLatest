@@ -101,13 +101,13 @@
                         </b>
                         <br>
                         <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="compName"
+                            style="font-size: 1rem; font-weight: bold; width: 90%; border: none;" class="compName"
                             oninput="updatecompName(this.value)">
                         <input type="text" value="{{customerId.address}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="address"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
                             oninput="updateAddress(this.value)">
                         <input type="text" value="{{customerId.country}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="country"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="country"
                             oninput="updateCountry(this.value)">
                     </td>
                     <td colspan="5"><b>Bill of Lading No:-
@@ -178,7 +178,7 @@
                 <td colspan="1" style="border-bottom: none;"></td>
                 <td colspan="5" style="border-bottom: none;">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <textarea onclick="this.style.border=`none`;" style="width:98%; text-align: center;"
+                    <textarea onclick="this.style.border=`none`;" style="width:98%; text-align: center;border: none;"
                         oninput="changeDescription(this.value)"
                         class="descriptionOfGoods">{{descriptionOfGoods}}</textarea>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -250,7 +250,7 @@
             <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; "></td>
                 <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">
-                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)">
+                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)" style="border: none;text-align: right;">
                 </td>
                 <td></td>
                 <td></td>
@@ -286,7 +286,7 @@
             </tr>
 
             <tr>
-                <td colspan="11" style="border-top: none; border-bottom:none;">
+                <td colspan="11" style="border-bottom:none;">
 
                     <script>
                         dec = (totalAmount - Math.trunc(totalAmount)).toFixed(2);
@@ -299,7 +299,7 @@
                             `<input type="text" value="Total {{cf_fob}} PORT {{portOfDischarge}} {{currency}} ` +
                             amt +
                             `"
-                        style="width: 99%;font-weight: bold;;" class="totalAmount" onclick="change_cf_fob(this.value)">`
+                        style="width: 99%;font-weight: bold;border: none;" class="totalAmount" onclick="change_cf_fob(this.value)">`
                         );
                     </script>
                 </td>
@@ -316,38 +316,31 @@
                 <td colspan="6" style="border: none;">&nbsp;</td>
             </tr>
             <tr>
-                <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Number
-                        Of Packages: &nbsp;&nbsp; {{totalBoxes}} Packages</b>
+                <td colspan="6" style="border: none;"><b>Number
+                        Of Packages:  {{totalBoxes}} Packages</b>
                 </td>
             </tr>
             <tr>
-                <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Net
+                <td colspan="6" style="border: none;"><b>Net
                         Weight:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <script>
                             document.write(Math.abs(`{{netWt}}`).toFixed(3))
                         </script>
                         kgs</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Gross
+                <td colspan="6" style="border: none;"><b>Gross
                         Weight:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <script>
                             document.write(Math.abs(`{{netGrossWt}}`).toFixed(3))
                         </script>
                         kgs</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Shipping
+                <td colspan="6" style="border: none;"><b>Shipping
                         Mark:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="text" value="{{shippingMark}}" onclick="this.style.border=`none`"
-                            style="width: 50%;" oninput="changeShippingMark(this.value)" class="shippingMark"></b></td>
+                            style="width: 50%;border: none;" oninput="changeShippingMark(this.value)" class="shippingMark"></b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>
@@ -403,12 +396,9 @@
                     <td rowspan=2 colspan=3>
                         <b>Exporter:</b>
                         <br>
-                        <input type="text" value="'AKAL SPRING LTD'," onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 98%;">
-                        <input type="text" value="A-8, PHASE V, FOCAL POINT" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 98%;">
-                        <input type="text" value="LUDHIANA - 141 010, INDIA" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 98%;">
+                        <b>AKAL SPRING LTD</b><br>
+                        <b>A-8, PHASE V, FOCAL POINT</b><br>
+                        <b>LUDHIANA - 141 010, INDIA</b>
                     </td>
                     <td colspan="3" style="text-align: center; border-bottom: none;">
                         Invoice No. & Date:<br>
@@ -440,13 +430,13 @@
                         </b>
                         <br>
                         <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="compName"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="compName"
                             oninput="updatecompName(this.value)">
                         <input type="text" value="{{customerId.address}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="address"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
                             oninput="updateAddress(this.value)">
                         <input type="text" value="{{customerId.country}}" onclick="this.style.border = `none`"
-                            style="font-size: 1rem; font-weight: bold; width: 90%;" class="country"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="country"
                             oninput="updateCountry(this.value)">
                     </td>
                     <td colspan="5"><b>Bill of Lading No:- {{billOfLadingNo}}
@@ -516,7 +506,7 @@
                 <td colspan="1" style="border-bottom: none;"></td>
                 <td colspan="5" style="border-bottom: none;">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <textarea onclick="this.style.border=`none`;" style="width:98%; text-align: center;"
+                    <textarea onclick="this.style.border=`none`;" style="width:98%; text-align: center;border: none;"
                         oninput="changeDescription(this.value)"
                         class="descriptionOfGoods">{{descriptionOfGoods}}</textarea>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -588,7 +578,7 @@
             <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; "></td>
                 <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">
-                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)">
+                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)" style="border: none; text-align: right;">
                 </td>
                 <td></td>
                 <td></td>
@@ -640,7 +630,7 @@
             </tr>
 
             <tr>
-                <td colspan="11" style="border-top: none; border-bottom:none;">
+                <td colspan="11" style="border-bottom:none;">
 
                     <script>
                         dec = (totalAmount - Math.trunc(totalAmount)).toFixed(2);
@@ -653,7 +643,7 @@
                             `<input type="text" value="Total {{cf_fob}} PORT {{portOfDischarge}} {{currency}} ` +
                             amt +
                             `"
-                        style="width: 99%;font-weight: bold; " class="totalAmount" onclick="change_cf_fob(this.value)">`
+                        style="width: 99%;font-weight: bold; border:none;" class="totalAmount" onclick="change_cf_fob(this.value)">`
                         );
                     </script>
                 </td>
@@ -669,38 +659,31 @@
                 <td colspan="6" style="border: none;">&nbsp;</td>
             </tr>
             <tr>
-                <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Number
-                        Of Packages: &nbsp;&nbsp; {{totalBoxes}} Packages</b>
+                <td colspan="6" style="border: none;"><b>Number
+                        Of Packages: {{totalBoxes}} Packages</b>
                 </td>
             </tr>
             <tr>
-                <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Net
+                <td colspan="6" style="border: none;"><b>Net
                         Weight:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <script>
                             document.write(Math.abs(`{{netWt}}`).toFixed(3))
                         </script>
                         kgs</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Gross
+                <td colspan="6" style="border: none;"><b>Gross
                         Weight:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <script>
                             document.write(Math.abs(`{{netGrossWt}}`).toFixed(3))
                         </script>
                         kgs</b></td>
             </tr>
             <tr>
-                <td colspan="6" style="border: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Shipping
+                <td colspan="6" style="border: none;"><b>Shipping
                         Mark:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="text" value="{{shippingMark}}" onclick="this.style.border=`none`"
-                            style="width: 50%;" oninput="changeShippingMark(this.value)" class="shippingMark"></b></td>
+                            style="width: 50%; border: none;" oninput="changeShippingMark(this.value)" class="shippingMark"></b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>

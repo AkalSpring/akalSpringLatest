@@ -62,11 +62,11 @@ def showPdf(request):
     context = {
         "iProds": prodList, "eProds": lastList, "netWt": netWt, "netGrossWt": netGrossWt,
         "totalBoxes": instance.totalBoxes, "invoice": instance.invoice, "billDate": instance.billDate,
-        "otherReferences": instance.otherReferences, 'grNo': instance.grNo, "customerId": instance.customerId,
+        "otherReferences": instance.otherReferences, 'grNo': instance.grNo, "customerId": instance.getConsignee(),
         "termOfPayment": instance.termsOfPayment, "preCarriage": instance.preCarriage,
         "billOfLadingNo": instance.billOfLadingNo, "ladingDate": instance.ladingDate,
         "vesselFlightNo": instance.vesselFlightNo, "portOfLoading": instance.portOfLoading,
         "portOfDischarge": instance.portOfDischarge, "finalDestination": instance.finalDestination,
-        "natureOfContract": instance.natureOfContract, "billId": id, "nextLevel": len(lastList) > 0, "empty": x,
+        "natureOfContract": instance.natureOfContract, "billId": id, "nextLevel": len(lastList) > 0, "empty": x,  "descriptionOfGoods": instance.descriptionOfGoods, "shippingMark": instance.shipingMark(),
     }
     return render(request, 'packingList/pdf_template.html', context)
