@@ -65,16 +65,14 @@ class Bill(models.Model):
             return self.amtDesc
 
     def getConsignee(self):
-        if self.pdfConsignee:
-            return json.loads(self.pdfConsignee)
-        else:
-            self.pdfConsignee = json.dumps({
+        self.pdfConsignee = json.dumps({
                 'name': self.customerId.company_name,
                 'address': self.customerId.company_address,
                 'country': self.customerId.company_country,
             })
-            self.save()
-            return json.loads(self.pdfConsignee)
+        
+        self.save()
+        return json.loads(self.pdfConsignee)
 
     def __str__(self):
         return str(self.invoice)
