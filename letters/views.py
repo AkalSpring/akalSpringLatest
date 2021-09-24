@@ -8,7 +8,7 @@ from products.models import Product
 import json
 import datetime
 from dateutil.parser import parse
-
+import re
 
 # Create your views here.
 def index(request):
@@ -72,6 +72,8 @@ def bankLetter(request):
 
 def exportDeclaration(request):
     instance = Bill.objects.get(id=request.GET.get("id"))
+    p = re.compile('(?<!\\\\)\'')
+    instance.products = p.sub('\"', instance.products)
     instance.products = json.loads(instance.products)
     totalWeight = 0
 

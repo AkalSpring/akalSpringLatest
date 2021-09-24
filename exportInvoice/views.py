@@ -24,7 +24,6 @@ def showBills(request):
 
         p = re.compile('(?<!\\\\)\'')
         bill.products = p.sub('\"', bill.products)
-
         bill.products = json.loads(bill.products)
 
         for product in bill.products:
@@ -51,7 +50,6 @@ def showPdf(request):
 
     p = re.compile('(?<!\\\\)\'')
     instance.products = p.sub('\"', instance.products)
-
     instance.products = json.loads(instance.products)
 
     netWt = 0

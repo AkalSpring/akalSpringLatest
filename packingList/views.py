@@ -33,7 +33,6 @@ def showPdf(request):
 
     p = re.compile('(?<!\\\\)\'')
     instance.products = p.sub('\"', instance.products)
-
     instance.products = json.loads(instance.products)
 
     netWt = 0

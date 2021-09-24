@@ -142,6 +142,8 @@ def editBill(request):
     bill = Bill.objects.get(id=id)
     company = Company.objects.filter(~Q(company_name=bill.customerId))
     product = Product.objects.all()
+    p = re.compile('(?<!\\\\)\'')
+    bill.products = p.sub('\"', bill.products)
     bill.products = json.loads(bill.products)
     try:
         bill.billDate = bill.billDate.isoformat()

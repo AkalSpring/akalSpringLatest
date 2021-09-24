@@ -8,6 +8,7 @@ from products.models import Product
 from .models import ProformaInvoice
 from django.db.models import Q
 import pandas as pd
+import re
 
 # Create your views here.
 
@@ -34,6 +35,8 @@ def showBills(request):
         proformaDate__range=[datFrom, datTo])
 
     for i in instance:
+        p = re.compile('(?<!\\\\)\'')
+        i.products = p.sub('\"', i.products)
         i.products = json.loads(i.products)
 
     context["bills"] = instance
@@ -54,6 +57,8 @@ def showBills2(request):
     instance = ProformaInvoice.objects.filter(proformaDate=proformaDate)
 
     for i in instance:
+        p = re.compile('(?<!\\\\)\'')
+        i.products = p.sub('\"', i.products)
         i.products = json.loads(i.products)
 
     context["bills"] = instance
@@ -119,6 +124,8 @@ def getPdf(request):
     context = dict()
     id = request.GET.get("id")
     instance = ProformaInvoice.objects.get(id=id)
+    p = re.compile('(?<!\\\\)\'')
+    instance.products = p.sub('\"', instance.products)
     instance.products = json.loads(instance.products)
 
     lst = list()
@@ -179,6 +186,8 @@ def editBill(request):
     bill = ProformaInvoice.objects.get(id=id)
     company = Company.objects.filter(~Q(company_name=bill.customerId))
     product = Product.objects.all()
+    p = re.compile('(?<!\\\\)\'')
+    bill.products = p.sub('\"', bill.products)
     bill.products = json.loads(bill.products)
     try:
         bill.proformaDate = bill.proformaDate.isoformat()
