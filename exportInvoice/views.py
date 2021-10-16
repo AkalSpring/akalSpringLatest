@@ -111,7 +111,7 @@ def showPdf(request):
         "portOfDischarge": instance.portOfDischarge, "finalDestination": instance.finalDestination,
         "natureOfContract": instance.natureOfContract, "currency": instance.currency,
         "freightCharges": instance.freightCharges, "descriptionOfGoods": instance.descriptionOfGoods, "billId": id, "currencyCode": instance.currency.split(" - ")[1], 
-        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x, "shippingMark": instance.shipingMark(), "cf_fob": instance.checkerForCForFOB, "amtDesc": instance.amtDescription()
+        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x, "shippingMark": instance.shipingMark(), "cf_fob": instance.checkerCForFOB(), "amtDesc": instance.amtDescription(), "flag": int(instance.flag),
     }
     
     return render(request, 'exportInvoice/pdf_template.html', context)
@@ -139,6 +139,7 @@ def changeCFFOB(request):
     val = request.GET.get("val")
     instance = Bill.objects.get(id=id)
     instance.checkerForCForFOB = val
+    instance.flag = True
     instance.save()
     return HttpResponse(json.dumps({"success": "success"}))
 

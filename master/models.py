@@ -5,6 +5,7 @@ from companies.models import Company
 from products.models import Product
 from django.db import models
 import json
+import pandas as pd
 # Create your models here.
 
 
@@ -42,9 +43,10 @@ class Bill(models.Model):
     descriptionOfGoods = models.TextField(
         default="LAMINATED LEAF SPRINGS & NUT WITH BOLTS")
     shipMark = models.TextField(blank=True, null=True)
-    checkerForCForFOB = models.TextField(default="C&F")
+    checkerForCForFOB = models.TextField(blank=True, null=True)
     amtDesc = models.TextField(blank=True, null=True)
     pdfConsignee = models.TextField(blank=True, null=True)
+    flag = models.BooleanField(default=False)
 
     def shipingMark(self):
         if self.shipMark:
@@ -76,6 +78,14 @@ class Bill(models.Model):
             
             self.save()
             return json.loads(self.pdfConsignee)
+
+    def checkerCForFOB(self):
+        if self.checkerForCForFOB and (self.checkerForCForFOB != "FOB" and self.checkerForCForFOB != "C&F"):
+            return self.checkerForCForFOB
+        else:
+            self.checkerForCForFOB = "Total C&F PORT {} {} ".format(self.portOfDischarge, self.currency)
+            self.save()
+            return self.checkerForCForFOB
 
     def __str__(self):
         return str(self.invoice)

@@ -246,7 +246,8 @@
             <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; "></td>
                 <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">
-                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)" style="border: none;text-align: right;">
+                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)"
+                        style="border: none;text-align: right;">
                 </td>
                 <td></td>
                 <td></td>
@@ -292,10 +293,10 @@
                                 dec) +
                             ' {{fractionalCurrencyCode}} Only');
                         document.write(
-                            `<input type="text" value="Total {{cf_fob}} PORT {{portOfDischarge}} {{currency}} ` +
+                            `<input type="text" value="{{cf_fob}}` +
                             amt +
                             `"
-                        style="width: 99%;font-weight: bold;border: none;" class="totalAmount" onclick="change_cf_fob(this.value)">`
+                        style="width: 99%;font-weight: bold;border: none;" class="totalAmount" oninput="change_cf_fob(this.value)">`
                         );
                     </script>
                 </td>
@@ -313,7 +314,7 @@
             </tr>
             <tr>
                 <td colspan="6" style="border: none;"><b>Number
-                        Of Packages:  {{totalBoxes}} Packages</b>
+                        Of Packages: {{totalBoxes}} Packages</b>
                 </td>
             </tr>
             <tr>
@@ -336,7 +337,8 @@
                 <td colspan="6" style="border: none;"><b>Shipping
                         Mark:
                         <input type="text" value="{{shippingMark}}" onclick="this.style.border=`none`"
-                            style="width: 50%;border: none;" oninput="changeShippingMark(this.value)" class="shippingMark"></b></td>
+                            style="width: 50%;border: none;" oninput="changeShippingMark(this.value)"
+                            class="shippingMark"></b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>
@@ -570,7 +572,8 @@
             <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; "></td>
                 <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">
-                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)" style="border: none; text-align: right;">
+                    <input type="text" value="{{amtDesc}}" class="amtDesc" oninput="amtDesc(this.value)"
+                        style="border: none; text-align: right;">
                 </td>
                 <td></td>
                 <td></td>
@@ -631,11 +634,15 @@
                             ` {{currencyCode}}` + ' and ' + inWords(
                                 dec) +
                             ' {{fractionalCurrencyCode}} Only');
+
+                        "{%if flag%}"
+                        amt = ""
+                        "{%endif%}"
                         document.write(
-                            `<input type="text" value="Total {{cf_fob}} PORT {{portOfDischarge}} {{currency}} ` +
+                            `<input type="text" value="{{cf_fob}}` +
                             amt +
                             `"
-                        style="width: 99%;font-weight: bold; border:none;" class="totalAmount" onclick="change_cf_fob(this.value)">`
+                        style="width: 99%;font-weight: bold; border:none;" class="totalAmount" oninput="change_cf_fob(this.value)">`
                         );
                     </script>
                 </td>
@@ -675,7 +682,8 @@
                 <td colspan="6" style="border: none;"><b>Shipping
                         Mark:
                         <input type="text" value="{{shippingMark}}" onclick="this.style.border=`none`"
-                            style="width: 50%; border: none;" oninput="changeShippingMark(this.value)" class="shippingMark"></b></td>
+                            style="width: 50%; border: none;" oninput="changeShippingMark(this.value)"
+                            class="shippingMark"></b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>
@@ -765,38 +773,13 @@
 
     function change_cf_fob(val) {
         let url = "/exportInvoice/changeCFFOB";
-        res = "Total "
 
-        if (val[6] == 'C') {
-            res += "FOB "
-
-            $.get(url, {
-                "id": `{{billId}}`,
-                "val": "FOB",
-            }, function (data, response) {
-                // return;
-            })
-        } else {
-            res += "C&F "
-
-            $.get(url, {
-                "id": `{{billId}}`,
-                "val": "C&F",
-            }, function (data, response) {
-                // return;
-            })
-        }
-
-        for (let index = 10; index < val.length; index++) {
-            res += val[index];
-        }
-
-        let arr = document.getElementsByClassName("totalAmount");
-
-        for (let index = 0; index < arr.length; index++) {
-            const element = arr[index];
-            element.value = res;
-        }
+        $.get(url, {
+            "id": `{{billId}}`,
+            "val": val,
+        }, function (data, response) {
+            return;
+        })
     }
 
     function updatecompName(val) {
@@ -816,7 +799,7 @@
             return;
         })
     }
-    
+
     function updateAddress(val) {
         let arr = document.getElementsByClassName("address");
 
@@ -834,7 +817,7 @@
             return;
         })
     }
-    
+
     function updateCountry(val) {
         let arr = document.getElementsByClassName("country");
 
