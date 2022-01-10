@@ -204,13 +204,14 @@ def editSave(request):
 
     bill.billDate = billDate
 
-    currYear = int(billDate[:4])
-    currMonth = int(billDate[5:7])
-    if currMonth < 4:
-        currYear-=1
-    invoice = "ASL/" + str(Bill.objects.all().count()+1) + "/" + str(currYear) + "-" + str(currYear + 1)
+    # currYear = int(billDate[:4])
+    # currMonth = int(billDate[5:7])
+    # if currMonth < 4:
+    #     currYear-=1
+    # invoice = "ASL/" + str(97) + "/" + str(currYear) + "-" + str(currYear + 1)
+    # print(invoice)
+    # bill.invoice=invoice
 
-    bill.invoice=invoice
     bill.otherReferences = otherReferences
     bill.grNo = grNo
     bill.customerId = customerId
