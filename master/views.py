@@ -71,6 +71,9 @@ def showBills2(request):
 
 def addBill(request):
     currYear = datetime.datetime.now().year
+    currMonth = datetime.datetime.now().month
+    if currMonth < 4:
+        currYear-=1
     invoice = "ASL/" + str(Bill.objects.all().count()+1) + "/" + str(currYear) + "-" + str(currYear + 1)
     totalBoxes = 0
     totalSales = 0
@@ -200,6 +203,14 @@ def editSave(request):
     prods = json.dumps(prods)
 
     bill.billDate = billDate
+
+    currYear = int(billDate[:4])
+    currMonth = int(billDate[5:7])
+    if currMonth < 4:
+        currYear-=1
+    invoice = "ASL/" + str(Bill.objects.all().count()+1) + "/" + str(currYear) + "-" + str(currYear + 1)
+
+    bill.invoice=invoice
     bill.otherReferences = otherReferences
     bill.grNo = grNo
     bill.customerId = customerId
