@@ -111,7 +111,7 @@ def showPdf(request):
         "portOfDischarge": instance.portOfDischarge, "finalDestination": instance.finalDestination,
         "natureOfContract": instance.natureOfContract, "currency": instance.currency,
         "freightCharges": instance.freightCharges, "descriptionOfGoods": instance.descriptionOfGoods, "billId": id, "currencyCode": instance.currency.split(" - ")[1], 
-        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x, "shippingMark": instance.shipingMark(), "cf_fob": instance.checkerCForFOB(), "amtDesc": instance.amtDescription(), "flag": int(instance.flag),
+        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x, "shippingMark": instance.shipingMark(), "cf_fob": instance.checkerCForFOB(), "amtDesc": instance.amtDescription(), "flag": int(instance.flag), "otherThanConsignee": instance.otherThanConsigne, "discount": instance.discount,
     }
     
     return render(request, 'exportInvoice/pdf_template.html', context)

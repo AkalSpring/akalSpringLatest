@@ -73,8 +73,9 @@ def addBill(request):
     currYear = datetime.datetime.now().year
     currMonth = datetime.datetime.now().month
     if currMonth < 4:
-        currYear-=1
-    invoice = "ASL/" + str(Bill.objects.all().count()+1) + "/" + str(currYear) + "-" + str(currYear + 1)
+        currYear -= 1
+    invoice = "ASL/" + str(Bill.objects.all().count()+1) + \
+        "/" + str(currYear) + "-" + str(currYear + 1)
     totalBoxes = 0
     totalSales = 0
     billDate = request.POST.get("billDate")
@@ -104,6 +105,8 @@ def addBill(request):
     currency = request.POST.get("currency")
     totalSales += float(freightCharges)
     totalProds = int(request.POST.get("totalProds"))
+    otherThanConsigne = request.POST.get("otherThanConsigne")
+    discount = int(request.POST.get("discount"))
     prods = []
     for i in range(1, totalProds+1):
         prod = request.POST.get("productId" + str(i)).replace("\'", "\"")
@@ -114,7 +117,8 @@ def addBill(request):
         totalSales += float(prod["qty"]) * float(prod["cpp"])
         if float(prod["boxWt"]):
             totalBoxes += 1
-        prod["boxType"] = request.POST.get("boxType" + str(i)) + ' ' + str(totalBoxes)
+        prod["boxType"] = request.POST.get(
+            "boxType" + str(i)) + ' ' + str(totalBoxes)
         prods.append(prod)
     prods = json.dumps(prods)
     newBill = Bill(invoice=invoice, billDate=billDate, otherReferences=otherReferences, grNo=grNo,
@@ -122,7 +126,7 @@ def addBill(request):
                    termsOfPayment=termsOfPayment, natureOfContract=natureOfContract, preCarriage=preCarriage,
                    vesselFlightNo=vesselFlightNo, portOfLoading=portOfLoading, portOfDischarge=portOfDischarge,
                    finalDestination=finalDestination, products=prods, freightCharges=freightCharges, currency=currency,
-                   totalSales=totalSales)
+                   totalSales=totalSales, otherThanConsigne=otherThanConsigne, discount=discount)
 
     try:
         newBill.save()
@@ -198,7 +202,8 @@ def editSave(request):
         totalSales += float(prod["qty"]) * float(prod["cpp"])
         if float(prod["boxWt"]):
             totalBoxes += 1
-        prod["boxType"] = request.POST.get("boxType" + str(i)) + ' ' + str(totalBoxes)
+        prod["boxType"] = request.POST.get(
+            "boxType" + str(i)) + ' ' + str(totalBoxes)
         prods.append(prod)
     prods = json.dumps(prods)
 

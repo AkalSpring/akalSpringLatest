@@ -88,16 +88,20 @@
                         <b>IEC NO.3089007959</b></td>
                 </tr>
                 <tr>
-                    <td colspan="3" rowspan="2">&nbsp;</td>
+                    <td colspan="3" rowspan="3"></td>
                     <td colspan="5">Other Reference(s):&nbsp;&nbsp;&nbsp;&nbsp;{{otherReferences}}</td>
                 </tr>
                 <tr>
                     <td colspan="5">GST NO. 03AABCA4456A1ZF</td>
                 </tr>
                 <tr>
+                    <td colspan="5">Other Than Consignee: <br>
+                        <b>{{otherThanConsignee}}</b></td>
+                </tr>
+                <tr>
                     <td colspan="3" rowspan="3">
                         <b>
-                            Consignee:-<br>
+                            Consignee:-<br><br>
                         </b>
                         <br>
                         <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
@@ -415,16 +419,20 @@
                         <b>IEC NO.3089007959</b></td>
                 </tr>
                 <tr>
-                    <td colspan="3" rowspan="2">&nbsp;</td>
+                    <td colspan="3" rowspan="3"></td>
                     <td colspan="5">Other Reference(s):&nbsp;&nbsp;&nbsp;&nbsp;{{otherReferences}}</td>
                 </tr>
                 <tr>
                     <td colspan="5">GST NO. 03AABCA4456A1ZF</td>
                 </tr>
                 <tr>
+                    <td colspan="5">Other Than Consignee: <br>
+                        <b>{{otherThanConsignee}}</b></td>
+                </tr>
+                <tr>
                     <td colspan="3" rowspan="3">
                         <b>
-                            Consignee:-<br>
+                            Consignee:-<br><br>
                         </b>
                         <br>
                         <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
@@ -601,6 +609,22 @@
                 </td>
             </tr>
             <tr>
+                <td colspan="1" style="border-top: none; border-bottom:none;"></td>
+                <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">
+                    <select style="border: none;">
+                        <option>Discount</option>
+                        <option>Advance</option>
+                    </select>
+                    ({{currencyCode}}):</td>
+                <td colspan="1" style="border-top: none;"></td>
+                <td colspan="1" style="border-top: none;"></td>
+                <td colspan="1" style="border-top: none;"></td>
+                <td colspan="1" style="border-top: none;"></td>
+                <td colspan="1" style="border-top: none; text-align: center;">
+                    {{discount}}
+                </td>
+            </tr>
+            <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; "></td>
                 <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">Total
                     Amount({{currencyCode}})
@@ -619,7 +643,7 @@
                 <td colspan="1"></td>
                 <td colspan="1" style="text-align: center;">
                     <script>
-                        document.write(totalAmount.toFixed(2))
+                        document.write(totalAmount.toFixed(2) - {{discount}})
                     </script>
                 </td>
             </tr>

@@ -15,6 +15,7 @@ class Bill(models.Model):
     otherReferences = models.TextField(blank=True, null=True)
     grNo = models.TextField(blank=True, null=True)
     customerId = models.ForeignKey(Company, on_delete=models.CASCADE)
+    otherThanConsigne = models.TextField(default="None")
     termsOfPayment = models.TextField(blank=True, null=True)
     natureOfContract = models.TextField(blank=True, null=True)
     preCarriage = models.TextField(blank=True, null=True)
@@ -29,6 +30,7 @@ class Bill(models.Model):
     ladingDate = models.DateField(blank=True, null=True)
     billOfLadingNo = models.TextField(blank=True, null=True)
     totalBoxes = models.IntegerField()
+    discount = models.IntegerField(default=0)
     # for letters
     lcNo = models.TextField(blank=True, null=True)
     lcDate = models.DateField(blank=True, null=True)

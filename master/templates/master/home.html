@@ -358,6 +358,23 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>Other Than Consigne</td>
+                                                <td style="overflow: visible;">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="col-lg-6 col-md-6">
+                                                                <select name="otherThanConsigne" type="text">
+                                                                    <option value="None">None</option>
+                                                                    {% for company in companies %}
+                                                                    <option value="{{company}}">{{company}}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>Term Of Payment</td>
                                                 <td>
                                                     <div class="col-lg-6 col-md-6">
@@ -707,6 +724,20 @@
                                                                     <option value="Zambia Kwacha - ZMK">Zambia
                                                                         Kwacha – ZMK</option>
                                                                 </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Discount / Advance</td>
+                                                <td>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <input name="discount" type="number"
+                                                                    class="form-control" placeholder="Discount In Same Currency" value="0">
                                                             </div>
                                                         </div>
                                                     </div>

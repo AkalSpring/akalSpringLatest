@@ -66,6 +66,6 @@ def showPdf(request):
         "billOfLadingNo": instance.billOfLadingNo, "ladingDate": instance.ladingDate,
         "vesselFlightNo": instance.vesselFlightNo, "portOfLoading": instance.portOfLoading,
         "portOfDischarge": instance.portOfDischarge, "finalDestination": instance.finalDestination,
-        "natureOfContract": instance.natureOfContract, "billId": id, "nextLevel": len(lastList) > 0, "empty": x,  "descriptionOfGoods": instance.descriptionOfGoods, "shippingMark": instance.shipingMark(),
+        "natureOfContract": instance.natureOfContract, "billId": id, "nextLevel": len(lastList) > 0, "empty": x,  "descriptionOfGoods": instance.descriptionOfGoods, "shippingMark": instance.shipingMark(), "otherThanConsignee": instance.otherThanConsigne
     }
     return render(request, 'packingList/pdf_template.html', context)
