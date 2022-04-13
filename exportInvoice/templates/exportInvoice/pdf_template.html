@@ -282,6 +282,7 @@
                 <td colspan="1"></td>
                 <td colspan="1" style="text-align: center;">
                     <script>
+                        console.log(totalAmount);
                         document.write(totalAmount.toFixed(2))
                     </script>
                 </td>
@@ -644,11 +645,8 @@
                 <td colspan="1"></td>
                 <td colspan="1" style="text-align: center;">
                     <script>
-                        document.write(totalAmount.toFixed(2) - {
-                            {
-                                discount
-                            }
-                        })
+                        totalAmount = totalAmount - {{discount}}
+                        document.write(totalAmount.toFixed(2))
                     </script>
                 </td>
             </tr>
