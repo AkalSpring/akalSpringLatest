@@ -74,7 +74,7 @@ def addBill(request):
     currMonth = datetime.datetime.now().month
     if currMonth < 4:
         currYear -= 1
-    invoice = "ASL/" + str(Bill.objects.all().count()+1) + \
+    invoice = "ASL/" + str(Bill.objects.filter(billDate__range=[datetime.date(currYear, 4, 1), datetime.date(currYear+1, 3, 31)]).count()+1) + \
         "/" + str(currYear) + "-" + str(currYear + 1)
     totalBoxes = 0
     totalSales = 0

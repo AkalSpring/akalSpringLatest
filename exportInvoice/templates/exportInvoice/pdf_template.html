@@ -96,7 +96,8 @@
                 </tr>
                 <tr>
                     <td colspan="5">Other Than Consignee: <br>
-                        <b>{{otherThanConsignee}}</b></td>
+                        <b><input type="text" value="{{otherThanConsignee}}" style="border: none; width: 100%;"></b>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="3">
@@ -427,7 +428,7 @@
                 </tr>
                 <tr>
                     <td colspan="5">Other Than Consignee: <br>
-                        <b>{{otherThanConsignee}}</b></td>
+                        <b><input type="text" value="{{otherThanConsignee}}" style="border: none;width: 100%;"></b></td>
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="3">
@@ -643,7 +644,11 @@
                 <td colspan="1"></td>
                 <td colspan="1" style="text-align: center;">
                     <script>
-                        document.write(totalAmount.toFixed(2) - {{discount}})
+                        document.write(totalAmount.toFixed(2) - {
+                            {
+                                discount
+                            }
+                        })
                     </script>
                 </td>
             </tr>
