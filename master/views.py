@@ -15,10 +15,11 @@ def index(request):
     context = dict()
     dat = request.POST.get("billDate")
 
-    instance = Product.objects.all()
+    instance = Product.objects.all().order_by("product_name")
     context["products"] = instance
 
-    instance = Company.objects.all()
+    instance = Company.objects.all().order_by("company_name")
+
     context["companies"] = instance
 
     return render(request, "master/home.html", context)
@@ -38,10 +39,10 @@ def showBills(request):
 
     context["bills"] = instance
 
-    instance = Product.objects.all()
+    instance = Product.objects.all().order_by("product_name")
     context["products"] = instance
 
-    instance = Company.objects.all()
+    instance = Company.objects.all().order_by("company_name")
     context["companies"] = instance
 
     return render(request, "master/home.html", context)
@@ -60,10 +61,10 @@ def showBills2(request):
 
     context["bills"] = instance
 
-    instance = Product.objects.all()
+    instance = Product.objects.all().order_by("product_name")
     context["products"] = instance
 
-    instance = Company.objects.all()
+    instance = Company.objects.all().order_by("company_name")
     context["companies"] = instance
 
     return render(request, "master/home.html", context)
@@ -148,7 +149,7 @@ def editBill(request):
     id = request.GET.get("id")
     bill = Bill.objects.get(id=id)
     company = Company.objects.filter(~Q(company_name=bill.customerId))
-    product = Product.objects.all()
+    product = Product.objects.all().order_by("product_name")
     p = re.compile('(?<!\\\\)\'')
     bill.products = p.sub('\"', bill.products)
     bill.products = json.loads(bill.products)
