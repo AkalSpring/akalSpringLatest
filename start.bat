@@ -5,4 +5,6 @@ python manage.py runserver
 @echo off
 "C:\Users\THEUSER\AppData\Local\Google\Chrome\Application\chrome.exe"
 sleep1
+title AKALTOOLS
+echo WELCOME TO AKALTOOLS
 start "Akal Tools" "http://127.0.0.1:8000/"
