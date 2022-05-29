@@ -148,7 +148,7 @@ def deleteBill(request):
 def editBill(request):
     id = request.GET.get("id")
     bill = Bill.objects.get(id=id)
-    company = Company.objects.filter(~Q(company_name=bill.customerId))
+    company = Company.objects.filter(~Q(company_name=bill.customerId)).order_by("company_name")
     product = Product.objects.all().order_by("product_name")
     p = re.compile('(?<!\\\\)\'')
     bill.products = p.sub('\"', bill.products)
