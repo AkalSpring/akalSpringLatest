@@ -85,7 +85,8 @@
                         </b>
                     </td>
                     <td style="border-top:none; text-align: center;" colspan="2"><br>
-                        <b>IEC NO.3089007959</b></td>
+                        <b>IEC NO.3089007959</b>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="3"></td>
@@ -108,9 +109,20 @@
                         <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%; border: none;" class="compName"
                             oninput="updatecompName(this.value)">
+
+                        {%if customerId.split_address%}
+                        <input type="text" value="{{customerId.address1}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
+                            oninput="updateAddress(this.value)">
+                        <input type="text" value="{{customerId.address2}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
+                            oninput="updateAddress(this.value)">
+                        {%else%}
                         <input type="text" value="{{customerId.address}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
                             oninput="updateAddress(this.value)">
+                        {%endif%}
+
                         <input type="text" value="{{customerId.country}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="country"
                             oninput="updateCountry(this.value)">
@@ -282,7 +294,6 @@
                 <td colspan="1"></td>
                 <td colspan="1" style="text-align: center;">
                     <script>
-                        console.log(totalAmount);
                         document.write(totalAmount.toFixed(2))
                     </script>
                 </td>
@@ -329,7 +340,9 @@
                         <script>
                             document.write(Math.abs(`{{netWt}}`).toFixed(3))
                         </script>
-                        kgs</b></td>
+                        kgs
+                    </b> <input type="text" value="{{withComponents}}" style="border: none;" class="withComponents"
+                        oninput="changeWithComponents(this.value)"> </td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;"><b>Gross
@@ -337,7 +350,8 @@
                         <script>
                             document.write(Math.abs(`{{netGrossWt}}`).toFixed(3))
                         </script>
-                        kgs</b></td>
+                        kgs
+                    </b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;"><b>Shipping
@@ -349,7 +363,8 @@
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>
                 <td colspan="5" rowspan="6" style="border-top: none; text-align: center;">
-                    <b>AUTHORISED SIGNATORY.</b></td>
+                    <b>AUTHORISED SIGNATORY.</b>
+                </td>
             </tr>
             <tr>
                 <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
@@ -418,7 +433,8 @@
                         </b>
                     </td>
                     <td style="border-top:none; text-align: center;" colspan="2"><br>
-                        <b>IEC NO.3089007959</b></td>
+                        <b>IEC NO.3089007959</b>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="3"></td>
@@ -429,20 +445,32 @@
                 </tr>
                 <tr>
                     <td colspan="5">Other Than Consignee: <br>
-                        <b><input type="text" value="{{otherThanConsignee}}" style="border: none;width: 100%;"></b></td>
+                        <b><input type="text" value="{{otherThanConsignee}}" style="border: none;width: 100%;"></b>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="3">
                         <b>
-                            Consignee:-<br><br>
+                            Consignee:-<br>
                         </b>
                         <br>
                         <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="compName"
                             oninput="updatecompName(this.value)">
+
+                        {%if customerId.split_address%}
+                        <input type="text" value="{{customerId.address1}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
+                            oninput="updateAddress(this.value)">
+                        <input type="text" value="{{customerId.address2}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
+                            oninput="updateAddress(this.value)">
+                        {%else%}
                         <input type="text" value="{{customerId.address}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
                             oninput="updateAddress(this.value)">
+                        {%endif%}
+
                         <input type="text" value="{{customerId.country}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="country"
                             oninput="updateCountry(this.value)">
@@ -571,6 +599,18 @@
             {%endif%}
 
             <tr>
+                <td colspan="1" style="border-top: none; border-bottom:none;"></td>
+                <td colspan="5" style="border-top: none; border-bottom:none; text-align: center;">
+                    <textarea class="descri" oninput="changeDescri(this.value)">{{descri}}</textarea>
+                </td>
+                <td colspan="1" style="border-top: none;"></td>
+                <td colspan="1" style="border-top: none;"></td>
+                <td colspan="1" style="border-top: none;"></td>
+                <td colspan="1" style="border-top: none;"></td>
+                <td colspan="1" style="border-top: none;"></td>
+            </tr>
+
+            <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;">&nbsp;</td>
                 <td colspan="5" style="border-top: none; border-bottom:none; border-top: none;"></td>
                 <td colspan="1" style="border-top: none; border-bottom:none; border-top: none;"></td>
@@ -610,6 +650,8 @@
                     </script>
                 </td>
             </tr>
+
+
             <tr>
                 <td colspan="1" style="border-top: none; border-bottom:none;"></td>
                 <td colspan="5" style="border-top: none; border-bottom:none; text-align: right;">
@@ -617,7 +659,8 @@
                         <option>Discount</option>
                         <option>Advance</option>
                     </select>
-                    ({{currencyCode}}):</td>
+                    ({{currencyCode}}):
+                </td>
                 <td colspan="1" style="border-top: none;"></td>
                 <td colspan="1" style="border-top: none;"></td>
                 <td colspan="1" style="border-top: none;"></td>
@@ -645,7 +688,7 @@
                 <td colspan="1"></td>
                 <td colspan="1" style="text-align: center;">
                     <script>
-                        totalAmount = totalAmount - {{discount}}
+                        totalAmount = totalAmount - {{ discount }}
                         document.write(totalAmount.toFixed(2))
                     </script>
                 </td>
@@ -695,7 +738,9 @@
                         <script>
                             document.write(Math.abs(`{{netWt}}`).toFixed(3))
                         </script>
-                        kgs</b></td>
+                        kgs <input type="text" value="{{withComponents}}" style="border: none;" class="withComponents"
+                            oninput="changeWithComponents(this.value)">
+                    </b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;"><b>Gross
@@ -703,7 +748,8 @@
                         <script>
                             document.write(Math.abs(`{{netGrossWt}}`).toFixed(3))
                         </script>
-                        kgs</b></td>
+                        kgs
+                    </b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;"><b>Shipping
@@ -715,7 +761,8 @@
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>
                 <td colspan="5" rowspan="6" style="border-top: none; text-align: center;">
-                    <b>AUTHORISED SIGNATORY.</b></td>
+                    <b>AUTHORISED SIGNATORY.</b>
+                </td>
             </tr>
             <tr>
                 <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
@@ -744,6 +791,55 @@
 <script src="{% static 'js/jquery.min.js' %}"></script><!-- JQUERY.MIN JS -->
 
 <script>
+    const tx = document.getElementsByClassName("descri");
+    for (let i = 0; i < tx.length; i++) {
+        tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+        tx[i].setAttribute("style", "text-align: center");
+        tx[i].style.width = "80%";
+        tx[i].style.border = "none";
+        tx[i].addEventListener("input", OnInput, false);
+    }
+
+    function changeDescri(val) {
+        let arr = document.getElementsByClassName("descri");
+
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            element.value = val;
+        }
+
+        let url = "/exportInvoice/changeDescri";
+        $.get(url, {
+            "id": `{{billId}}`,
+            "val": val,
+        }, function (data, response) {
+            return;
+        })
+    }
+
+    function OnInput() {
+        this.style.height = "auto";
+        this.style.height = (this.scrollHeight) + "px";
+    }
+
+
+    function changeWithComponents(val) {
+        let arr = document.getElementsByClassName("withComponents");
+
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            element.value = val;
+        }
+
+        let url = "/exportInvoice/changeWithComponents";
+        $.get(url, {
+            "id": `{{billId}}`,
+            "val": val,
+        }, function (data, response) {
+            return;
+        })
+    }
+
     function changeDescription(val) {
         let arr = document.getElementsByClassName("descriptionOfGoods");
 

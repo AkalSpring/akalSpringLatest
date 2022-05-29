@@ -169,6 +169,7 @@ def editSave(request):
     otherReferences = request.POST.get("otherReferences")
     billOfLadingNo = request.POST.get("billOfLadingNo")
     ladingDate = request.POST.get("ladingDate")
+    otherThanConsigne = request.POST.get("otherThanConsigne")
 
     if not ladingDate:
         ladingDate = None
@@ -190,6 +191,7 @@ def editSave(request):
     finalDestination = request.POST.get("finalDestination")
     freightCharges = request.POST.get("freightCharges")
     currency = request.POST.get("currency")
+    discount = request.POST.get("discount")
     totalSales += float(freightCharges)
     totalProds = int(request.POST.get("totalProds"))
     prods = []
@@ -234,5 +236,7 @@ def editSave(request):
     bill.totalBoxes = totalBoxes
     bill.billOfLadingNo = billOfLadingNo
     bill.ladingDate = ladingDate
+    bill.discount = discount
+    bill.otherThanConsigne = otherThanConsigne
     bill.save()
     return showBills2(request)

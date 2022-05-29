@@ -49,6 +49,9 @@ class Bill(models.Model):
     amtDesc = models.TextField(blank=True, null=True)
     pdfConsignee = models.TextField(blank=True, null=True)
     flag = models.BooleanField(default=False)
+    withComponents = models.TextField(
+        default="(With Components)", blank=True, null=True)
+    descri = models.TextField(default="(add description)")
 
     def shipingMark(self):
         if self.shipMark:
@@ -72,12 +75,29 @@ class Bill(models.Model):
         if self.pdfConsignee:
             return json.loads(self.pdfConsignee)
         else:
-            self.pdfConsignee = json.dumps({
+            if len(self.customerId.company_address) > 1:
+                ind = 0
+
+                for i in range(20, len(self.customerId.company_address)):
+                    if self.customerId.company_address[i] == ' ':
+                        ind = i
+                        break
+
+                self.pdfConsignee = json.dumps({
+                    'name': self.customerId.company_name,
+                    'address1': self.customerId.company_address[:i],
+                    'address2': self.customerId.company_address[i+1:],
+                    'country': self.customerId.company_country,
+                    'split_address': 1,
+                })
+            else:
+                self.pdfConsignee = json.dumps({
                     'name': self.customerId.company_name,
                     'address': self.customerId.company_address,
                     'country': self.customerId.company_country,
+                    'split_address': 1,
                 })
-            
+
             self.save()
             return json.loads(self.pdfConsignee)
 
@@ -85,7 +105,8 @@ class Bill(models.Model):
         if self.checkerForCForFOB and (self.checkerForCForFOB != "FOB" and self.checkerForCForFOB != "C&F"):
             return self.checkerForCForFOB
         else:
-            self.checkerForCForFOB = "Total C&F PORT {} {} ".format(self.portOfDischarge, self.currency)
+            self.checkerForCForFOB = "Total C&F PORT {} {} ".format(
+                self.portOfDischarge, self.currency)
             self.save()
             return self.checkerForCForFOB
 

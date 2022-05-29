@@ -58,11 +58,12 @@
                         </b>
                     </td>
                     <td style="border-top:none; text-align: center;" colspan="2"><br>
-                        <b>IEC NO.3089007959</b></td>
+                        <b>IEC NO.3089007959</b>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="2">Other Than Consignee: <br>
-                        <b>{{otherThanConsignee}}</b</td>
+                        <b>{{otherThanConsignee}}</b< /td>
                     <td colspan="5">Other Reference(s):&nbsp;&nbsp;&nbsp;&nbsp;{{otherReferences}}</td>
                 </tr>
                 <tr>
@@ -77,9 +78,20 @@
                         <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%; border: none;" class="compName"
                             oninput="updatecompName(this.value)">
+
+                        {%if customerId.split_address%}
+                        <input type="text" value="{{customerId.address1}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
+                            oninput="updateAddress(this.value)">
+                        <input type="text" value="{{customerId.address2}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
+                            oninput="updateAddress(this.value)">
+                        {%else%}
                         <input type="text" value="{{customerId.address}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
                             oninput="updateAddress(this.value)">
+                        {%endif%}
+
                         <input type="text" value="{{customerId.country}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="country"
                             oninput="updateCountry(this.value)">
@@ -164,9 +176,11 @@
             </tr>
             {%for product in products%}
             <tr>
-                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">{{product.boxType}} </td>
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">{{product.boxType}}
+                </td>
                 <td colspan="5" style="border-top: none; border-bottom:none;text-align: center;">{{product.name }}</td>
-                <td colspan="1" style="border-top: none; border-bottom:none; text-align: center;">{{product.hsnCode}}</td>
+                <td colspan="1" style="border-top: none; border-bottom:none; text-align: center;">{{product.hsnCode}}
+                </td>
                 <td colspan="1" style="border-top: none; border-bottom:none; text-align: center;">
                     <script>
                         document.write(Math.abs("{{product.weight}}").toFixed(3))
@@ -262,7 +276,9 @@
                         <script>
                             document.write(Math.abs(`{{netWt}}`).toFixed(3))
                         </script>
-                        kgs</b></td>
+                        kgs
+                    </b><input type="text" value="{{withComponents}}" style="border: none;" class="withComponents"
+                        oninput="changeWithComponents(this.value)"></td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;"><b>Gross
@@ -270,7 +286,8 @@
                         <script>
                             document.write(Math.abs(`{{netGrossWt}}`).toFixed(3))
                         </script>
-                        kgs</b></td>
+                        kgs
+                    </b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;"><b>Shipping
@@ -282,7 +299,8 @@
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>
                 <td colspan="5" rowspan="6" style="border-top: none; text-align: center;">
-                    <b>AUTHORISED SIGNATORY.</b></td>
+                    <b>AUTHORISED SIGNATORY.</b>
+                </td>
             </tr>
             <tr>
                 <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
@@ -348,7 +366,8 @@
                         </b>
                     </td>
                     <td style="border-top:none; text-align: center;" colspan="2"><br>
-                        <b>IEC NO.3089007959</b></td>
+                        <b>IEC NO.3089007959</b>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="2"></td>
@@ -366,9 +385,20 @@
                         <input type="text" value="{{customerId.name}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%; border: none;" class="compName"
                             oninput="updatecompName(this.value)">
+
+                        {%if customerId.split_address%}
+                        <input type="text" value="{{customerId.address1}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
+                            oninput="updateAddress(this.value)">
+                        <input type="text" value="{{customerId.address2}}" onclick="this.style.border = `none`"
+                            style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
+                            oninput="updateAddress(this.value)">
+                        {%else%}
                         <input type="text" value="{{customerId.address}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="address"
                             oninput="updateAddress(this.value)">
+                        {%endif%}
+
                         <input type="text" value="{{customerId.country}}" onclick="this.style.border = `none`"
                             style="font-size: 1rem; font-weight: bold; width: 90%;border: none;" class="country"
                             oninput="updateCountry(this.value)">
@@ -453,9 +483,11 @@
             </tr>
             {%for product in eProds%}
             <tr>
-                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">{{product.boxType}} </td>
+                <td colspan="1" style="border-top: none; border-bottom:none;text-align: center;">{{product.boxType}}
+                </td>
                 <td colspan="5" style="border-top: none; border-bottom:none;text-align: center;">{{product.name }}</td>
-                <td colspan="1" style="border-top: none; border-bottom:none; text-align: center;">{{product.hsnCode}}</td>
+                <td colspan="1" style="border-top: none; border-bottom:none; text-align: center;">{{product.hsnCode}}
+                </td>
                 <td colspan="1" style="border-top: none; border-bottom:none; text-align: center;">
                     <script>
                         document.write(Math.abs("{{product.weight}}").toFixed(3))
@@ -551,7 +583,9 @@
                         <script>
                             document.write(Math.abs(`{{netWt}}`).toFixed(3))
                         </script>
-                        kgs</b></td>
+                        kgs
+                    </b><input type="text" value="{{withComponents}}" style="border: none;" class="withComponents"
+                        oninput="changeWithComponents(this.value)"></td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;"><b>Gross
@@ -559,7 +593,8 @@
                         <script>
                             document.write(Math.abs(`{{netGrossWt}}`).toFixed(3))
                         </script>
-                        kgs</b></td>
+                        kgs
+                    </b></td>
             </tr>
             <tr>
                 <td colspan="6" style="border: none;"><b>Shipping
@@ -571,7 +606,8 @@
             <tr>
                 <td colspan="6" style="border-bottom: none;">&nbsp;</td>
                 <td colspan="5" rowspan="6" style="border-top: none; text-align: center;">
-                    <b>AUTHORISED SIGNATORY.</b></td>
+                    <b>AUTHORISED SIGNATORY.</b>
+                </td>
             </tr>
             <tr>
                 <td colspan="6" style="border-top: none;border-bottom: none;"><b>BANK
@@ -598,8 +634,21 @@
 </body>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
-    if ($(window).height() < $(document).height()) {
-        console.log("exceeded");
+    function changeWithComponents(val) {
+        let arr = document.getElementsByClassName("withComponents");
+
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            element.value = val;
+        }
+
+        let url = "/exportInvoice/changeWithComponents";
+        $.get(url, {
+            "id": `{{billId}}`,
+            "val": val,
+        }, function (data, response) {
+            return;
+        })
     }
 
     function changeDescription(val) {

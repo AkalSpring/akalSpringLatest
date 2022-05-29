@@ -6,6 +6,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('allBills', views.showBills, name='allBills'),
     path('pdf', views.showPdf, name=''),
+    path('changeDescri', views.changeDescri),
+    path('changeWithComponents', views.changeWithComponents),
     path('changeDescription', views.changeDescription),
     path('changeShippingMark', views.changeShippingMark),
     path('changeCFFOB', views.changeCFFOB),

@@ -111,7 +111,7 @@ def showPdf(request):
         "portOfDischarge": instance.portOfDischarge, "finalDestination": instance.finalDestination,
         "natureOfContract": instance.natureOfContract, "currency": instance.currency,
         "freightCharges": instance.freightCharges, "descriptionOfGoods": instance.descriptionOfGoods, "billId": id, "currencyCode": instance.currency.split(" - ")[1], 
-        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x, "shippingMark": instance.shipingMark(), "cf_fob": instance.checkerCForFOB(), "amtDesc": instance.amtDescription(), "flag": int(instance.flag), "otherThanConsignee": instance.otherThanConsigne, "discount": instance.discount,
+        "fractionalCurrencyCode": FractionalCurrencyCode, "nextLevel": len(lastList) > 0, "empty": x, "shippingMark": instance.shipingMark(), "cf_fob": instance.checkerCForFOB(), "amtDesc": instance.amtDescription(), "flag": int(instance.flag), "otherThanConsignee": instance.otherThanConsigne, "discount": instance.discount, "withComponents": instance.withComponents, "descri": instance.descri,
     }
     
     return render(request, 'exportInvoice/pdf_template.html', context)
@@ -122,6 +122,22 @@ def changeDescription(request):
     val = request.GET.get("val")
     instance = Bill.objects.get(id=id)
     instance.descriptionOfGoods = val
+    instance.save()
+    return HttpResponse(json.dumps({"success": "success"}))
+
+def changeDescri(request):
+    id = request.GET.get("id")
+    val = request.GET.get("val")
+    instance = Bill.objects.get(id=id)
+    instance.descri = val
+    instance.save()
+    return HttpResponse(json.dumps({"success": "success"}))
+
+def changeWithComponents(request):
+    id = request.GET.get("id")
+    val = request.GET.get("val")
+    instance = Bill.objects.get(id=id)
+    instance.withComponents = val
     instance.save()
     return HttpResponse(json.dumps({"success": "success"}))
 
@@ -169,6 +185,7 @@ def updateAddress(request):
     instance = Bill.objects.get(id=id)
     data = instance.getConsignee()
     data["address"] = val
+    data["split_address"] = (len(val)>60)
     instance.pdfConsignee = json.dumps(data)
     instance.save()
     return HttpResponse(json.dumps({"success": "success"}))
