@@ -75,18 +75,18 @@ class Bill(models.Model):
         if self.pdfConsignee:
             return json.loads(self.pdfConsignee)
         else:
-            if len(self.customerId.company_address) > 1:
+            if len(self.customerId.company_address) > 60:
                 ind = 0
 
-                for i in range(20, len(self.customerId.company_address)):
+                for i in range(25, len(self.customerId.company_address)):
                     if self.customerId.company_address[i] == ' ':
                         ind = i
                         break
 
                 self.pdfConsignee = json.dumps({
                     'name': self.customerId.company_name,
-                    'address1': self.customerId.company_address[:i],
-                    'address2': self.customerId.company_address[i+1:],
+                    'address1': self.customerId.company_address[:ind],
+                    'address2': self.customerId.company_address[ind+1:],
                     'country': self.customerId.company_country,
                     'split_address': 1,
                 })
@@ -95,7 +95,7 @@ class Bill(models.Model):
                     'name': self.customerId.company_name,
                     'address': self.customerId.company_address,
                     'country': self.customerId.company_country,
-                    'split_address': 1,
+                    'split_address': 0,
                 })
 
             self.save()
