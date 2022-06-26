@@ -30,7 +30,7 @@ class Bill(models.Model):
     ladingDate = models.DateField(blank=True, null=True)
     billOfLadingNo = models.TextField(blank=True, null=True)
     totalBoxes = models.IntegerField()
-    discount = models.IntegerField(default=0)
+    discount = models.FloatField(default=0)
     # for letters
     lcNo = models.TextField(blank=True, null=True)
     lcDate = models.DateField(blank=True, null=True)

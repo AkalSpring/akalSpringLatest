@@ -666,7 +666,9 @@
                 <td colspan="1" style="border-top: none;"></td>
                 <td colspan="1" style="border-top: none;"></td>
                 <td colspan="1" style="border-top: none; text-align: center;">
-                    {{discount}}
+                    <script>
+                        document.write(parseFloat(`{{discount}}`).toFixed(2))
+                    </script>
                 </td>
             </tr>
             <tr>
